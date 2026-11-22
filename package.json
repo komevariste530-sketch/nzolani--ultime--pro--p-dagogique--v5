@@ -3,14 +3,14 @@
   "version": "5.0.0",
   "private": true,
   "description": "Plateforme pédagogique NZOLANI V5",
-  "main": "server/index.js",
+  "main": "index.js",
   "scripts": {
-    "dev": "node --watch server/index.js",
-    "start": "node server/index.js",
+    "dev": "node --watch index.js",
+    "start": "node index.js",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy",
-    "seed:admin": "node scripts/seed-admin.js",
+    "seed:admin": "node seed-admin.js",
     "android:add": "npx cap add android",
     "android:sync": "npx cap sync android",
     "android:open": "npx cap open android"
