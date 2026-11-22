@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0052CC"><link rel="manifest" href="/manifest.webmanifest">
+<title>NZOLANI ULTIME PRO+ PÉDAGOGIQUE V5</title><link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header><div class="brand"><span class="logo">N+</span><div><h1>NZOLANI ULTIME PRO+</h1><small>PÉDAGOGIQUE V5 — ÉDITION CONGO</small></div></div><span id="net" class="pill">Connexion…</span></header>
+<nav><button data-tab="dashboard" class="selected">Accueil</button><button data-tab="builder">Générateur</button><button data-tab="chat">Assistant</button><button data-tab="library">Documents</button><button data-tab="account">Compte</button></nav>
+<main>
+<section id="dashboard" class="tab show">
+ <div class="hero"><h2>Préparez vos fiches pédagogiques</h2><p>Un outil pour organiser, préparer et vérifier les leçons. La validation finale appartient à l'enseignant.</p><button class="primary" data-go="builder">Créer des fiches</button></div>
+ <div class="cards"><article><b>Classes</b><p>CP1 à CM2</p></article><article><b>Génération</b><p>1 ou 10 fiches</p></article><article><b>Hors connexion</b><p>Brouillons locaux et synchronisation différée</p></article></div>
+ <p class="warning">Les démarches proposées sont des canevas. Les références pédagogiques officielles doivent être chargées et vérifiées par l'administration avant d'être présentées comme officielles.</p>
+ <h3>Mes fiches</h3><div id="lessonList"></div>
+</section>
+<section id="builder" class="tab">
+ <h2>Générateur de fiches</h2><div class="formgrid">
+ <label>Classe<select id="classLevel"><option>CP1</option><option>CP2</option><option>CE1</option><option>CE2</option><option>CM1</option><option>CM2</option></select></label>
+ <label>Discipline<select id="discipline"></select></label><label>Sous-discipline<select id="subDiscipline"></select></label>
+ <label>Nombre<select id="count"><option value="1">1 fiche</option><option value="10" selected>10 fiches</option></select></label>
+ </div>
+ <label>Thèmes (un par ligne)<textarea id="themes" placeholder="Thème 1&#10;Thème 2"></textarea></label>
+ <div class="formgrid"><label>Objectif général<input id="og"></label><label>Objectif spécifique<input id="os"></label><label>Objectif d'apprentissage<input id="oa"></label></div>
+ <label>Prérequis<textarea id="prerequisites"></textarea></label><label>Supports / matériel<textarea id="materials"></textarea></label><label>Consignes<textarea id="instructions"></textarea></label>
+ <div class="actions"><button id="preview" class="primary">Prévisualiser</button><button id="validate" disabled>Valider et enregistrer</button><button id="print">Imprimer / PDF</button></div><div id="previewArea"></div>
+</section>
+<section id="chat" class="tab"><h2>NZOLANI ASSISTANT</h2><p>Posez une question pédagogique ou générale. L'assistant ne doit pas divulguer les secrets de NZOLANI.</p><div id="chatlog" class="chatlog"><div class="bubble bot">Mbote ! Comment puis-je vous orienter ?</div></div><textarea id="chatText" placeholder="Votre question…"></textarea><button id="ask" class="primary">Envoyer</button><p class="hint">Le mode connecté nécessite une configuration IA côté serveur. Hors connexion, les réponses sont limitées.</p></section>
+<section id="library" class="tab"><h2>Documents pédagogiques publiés</h2><div id="documents"></div><p class="hint">Les documents privés ou en attente de vérification ne sont pas affichés aux enseignants.</p></section>
+<section id="account" class="tab"><h2>Connexion</h2><div class="formgrid"><label>Adresse e-mail<input id="email" type="email" autocomplete="username"></label><label>Mot de passe<input id="password" type="password" autocomplete="current-password"></label></div><button id="login" class="primary">Se connecter</button><button id="logout">Se déconnecter</button><p id="accountState" class="hint">Non connecté</p><div id="adminPanel" hidden><h3>Administration</h3><p>Les fonctions d'administration détaillées sont accessibles via l'API avec un compte ADMIN.</p><label>Ajouter un document<input id="uploadFile" type="file" accept=".pdf,.doc,.docx,.txt"></label><label>Titre<input id="uploadTitle"></label><label>Émetteur / source<input id="uploadIssuer"></label><button id="uploadDoc">Téléverser (ADMIN)</button><div id="adminResult"></div></div></section>
+</main>
+<footer>NZOLANI ULTIME PRO+ PÉDAGOGIQUE V5 • République du Congo</footer>
+<script src="/app.js"></script>
+</body></html>

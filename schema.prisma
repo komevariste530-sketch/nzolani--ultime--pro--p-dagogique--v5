@@ -1,0 +1,103 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  TEACHER
+  ADMIN
+}
+
+enum DocumentStatus {
+  PENDING
+  VERIFIED
+  PUBLISHED
+  ARCHIVED
+  REJECTED
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  displayName  String
+  role         Role     @default(TEACHER)
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  lessons      Lesson[]
+  documents    PedagogicalDocument[] @relation("DocumentUploader")
+  auditEvents  AuditLog[] @relation("AuditActor")
+}
+
+model Lesson {
+  id           String   @id @default(cuid())
+  ownerId      String
+  owner        User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  classLevel   String
+  discipline   String
+  subDiscipline String
+  theme        String
+  objectiveGeneral String?
+  objectiveSpecific String?
+  learningObjective String?
+  prerequisites String?
+  materials    String?
+  instructions String?
+  steps        Json
+  status       String   @default("DRAFT")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  @@index([ownerId, updatedAt])
+}
+
+model PedagogicalDocument {
+  id             String @id @default(cuid())
+  title          String
+  issuer         String?
+  sourceReference String?
+  publicationDate DateTime?
+  classLevel     String?
+  discipline     String?
+  version        String?
+  storagePath    String
+  originalName   String
+  mimeType       String
+  sizeBytes      Int
+  sha256         String
+  status         DocumentStatus @default(PENDING)
+  uploadedById   String
+  uploadedBy     User @relation("DocumentUploader", fields: [uploadedById], references: [id])
+  verifiedById   String?
+  verifiedAt     DateTime?
+  notes          String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  @@index([status, discipline, classLevel])
+}
+
+model ReleaseNote {
+  id          String   @id @default(cuid())
+  version     String
+  title       String
+  notes       String
+  published   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  actorId     String?
+  actor       User?    @relation("AuditActor", fields: [actorId], references: [id], onDelete: SetNull)
+  action      String
+  entityType  String
+  entityId    String?
+  metadata    Json?
+  ipAddress   String?
+  createdAt   DateTime @default(now())
+  @@index([createdAt, action])
+}

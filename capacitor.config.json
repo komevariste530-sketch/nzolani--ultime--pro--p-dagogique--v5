@@ -1,0 +1,8 @@
+{
+  "appId": "cg.nzolani.ultimepro.pedagogique",
+  "appName": "NZOLANI ULTIME PRO+ Pédagogique",
+  "webDir": "public",
+  "server": {
+    "androidScheme": "https"
+  }
+}
